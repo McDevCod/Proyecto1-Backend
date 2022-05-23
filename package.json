@@ -1,0 +1,28 @@
+{
+  "name": "agendaapp",
+  "version": "1.0.0",
+  "description": "1er Proyecto de Backend Essentials Tzuzul bootcamp",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "npx nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/McDevCod/Proyecto1-Backend.git"
+  },
+  "keywords": [],
+  "author": "McDev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/McDevCod/Proyecto1-Backend/issues"
+  },
+  "homepage": "https://github.com/McDevCod/Proyecto1-Backend#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
