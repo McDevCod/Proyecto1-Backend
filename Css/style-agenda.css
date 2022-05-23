@@ -1,0 +1,221 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200;300;400;500;600;800&display=swap');
+
+:root{
+    --primary-color:#E63946;
+    --secondary-color:#F1FAEE;
+    --third-color:#A8DADC;
+    --fourth-color:#457B9D;
+    --fifth-color:#1D3557;
+    --border-radius:0.5rem;
+    --table-background:#c0fdff;
+    --table-evenrows:#d9dee2;
+    --table-pairrows:#7fbdcf;
+    --table-header:#5147d4;
+}
+
+*,
+*:before,
+*:after{
+    margin: 0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: var(--secondary-color);
+    font-family:'PT Sans', sans-serif;
+
+}
+
+nav{
+    background-color: #1D3557;
+}
+.nav-container{
+    display:flex;
+    justify-content: space-between;
+    margin:1rem;
+    align-items: center;
+    padding:1rem;
+    position:relative;
+}
+
+.logo{
+    width: 80px;
+    height: auto;
+    cursor: pointer;
+    position:relative;
+    left:2rem;
+} 
+
+.nav-button-container{
+    padding: auto;
+    align-items: center;
+    display: flex;
+}
+
+a:hover{
+    color: var(--third-color);
+    transition: all 0.3s ease 0;
+    
+}
+
+.nav-button{
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    text-decoration: none;
+    color:var(--secondary-color);
+}
+
+
+main{
+    display:flex;
+    justify-content: space-around;
+    
+}
+
+aside{
+    box-shadow:0px 0px 20px var(--fourth-color);
+    border-radius: var(--border-radius);
+    background-color: var(--third-color);
+    position:relative;
+    left:-2rem;
+}
+
+.menu-container{
+    display: flex;
+    flex-flow: column;
+    width: 136px;
+    height:440px;
+
+}
+
+.menu-container h2{
+    color: var(--fifth-color);
+    text-align: center;
+}
+
+.menu-buttons-container{
+    padding: 1rem;
+    align-items:center;
+    display: flex;
+    flex-direction: column;
+    border-style: 1px solid var(#1D3557);
+    position:relative;
+}
+
+.menu-buttons-container a:hover{
+    color: var(--primary-color);
+    transition: all 0.3s ease 0;
+    padding: auto;
+    
+}
+
+.button-container{
+    width: 80px;
+    height: 32px;
+    border: 1px solid var(--secondary-color);
+    border-radius: var(--border-radius);
+    text-align: center;
+    margin-top: 0.5rem;
+}
+.menu-button{
+    text-decoration: none;
+    color:var(--fifth-color);
+
+}
+
+.form-table-container{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    left:-10rem
+}
+.form-container{
+    text-align: center;
+}
+
+.table-container{
+    height:17rem;
+    width: 56.6rem;
+    display:grid;
+    justify-content:center;
+    align-items: center;
+    color:var(--fifth-color);
+    font-size: 0.8rem;
+    background-color:var(--secondary-color);
+    border-radius: var(--border-radius);
+    margin-top: 3rem;
+    box-shadow: 10px 10px 10px 5px var(--fourth-color);
+    margin-left:1.7rem;
+}
+
+.input-container{
+
+}
+
+.table-agenda{
+    height: auto;
+    width: auto;
+    border-collapse: collapse;
+    text-align: left;
+    border-radius: var(--border-radius);
+}
+
+.table-header{
+    background-color:var(--fifth-color);
+    padding: 0.5rem 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    font-size: 0.6rem ;
+    font-weight: 900;
+    color:#d9dee2;
+    
+}
+
+.table-rows{
+    padding:0.1rem 2rem;
+   
+}
+
+tr{
+    background-color:var(--table-pairrows);
+
+}
+
+tr:nth-child(even){
+    background-color:var(--table-evenrows);
+
+}
+
+section{
+    display:flex;
+    flex-direction: row;
+    margin-top: 1.5rem;
+    margin-left: 1.5rem;
+    justify-content: center;
+
+}
+
+.message-container{
+    background-color: #363233;
+    height:136px;
+    width: 910px;
+    border: 0.3rem solid var(--fourth-color);
+    border-radius: var(--border-radius);
+    font-family: 'Dosis', sans-serif;
+    color:#d9dee2;
+    font-weight:800;
+    font-size: 1rem;
+    justify-content: center;
+}
+
+.message-container h2{
+    background-color: #F1FAEE;
+    font-size: 1rem;
+    text-align: center;
+    color: #1D3557;
+    font-weight: 900;
+   
+}
