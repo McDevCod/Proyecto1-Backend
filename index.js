@@ -5,7 +5,7 @@ const path = require("path")
 const express = require("express")
 
 
-//------------Importación de Routers---------//
+//------------Importación de Routers para direccionar a los distintos html del proyecto---------//
 const users=require("./routes/users")
 const registro=require("./routes/registro")
 const soporte=require("./routes/soporte")
@@ -21,7 +21,7 @@ const port= 3000
 const app= express()
 
 //------------Middlewares------------------//
-//---Archivos Staticos------//
+//---Archivos Staticos para alojar CSS e imagenes que seran requeridos por los html------//
 app.use(express.static(path.join(__dirname,"static")))
 
 //-------Uso de los routers--------------//
@@ -35,7 +35,7 @@ app.use(configuracion)
 app.use(ayuda)
 
 
-//------------Respondiendo a peticion get del cliente con index del proyecto---------------------//
+//------------Respondiendo a peticion GET del cliente con index del proyecto---------------------//
 app.get("/",function(request,response){
     console.log(path.join(__dirname,"views","index.html"))
     return response.sendFile(path.join(__dirname,"views","index.html"))
