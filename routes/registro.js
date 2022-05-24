@@ -20,11 +20,10 @@ router.get("/registro.html",function(request,response){
 })
 
 //-------------Post para insertar------------------------------//
-router.post("/registro/new", async function(request,response){
-    console.log((request.body))
+router.post("/registro.html", async function(request,response){
+    console.log(request.body)
     const user= new User(request.body)
     const validation= user.validate()
-    console.log(user.data)
     if(validation.validated){
         return response.json(await user.save())
     }
@@ -47,15 +46,16 @@ router.put("/registro/actualizar", async function(request,response){
 
 //------------------Get para Consultar------------------------------//
 router.get("/registro/consulta", async function(request,response){
-    console.log((request.body))
-    const user= new User(request.body)
-    const validation= user.validate()
-    console.log(user.data)
-    if(validation.validated){
-        return response.json(await user.save())
-    }
+    try{
+        const data = await database.query("SELECT * FROM user_account")
 
-    return response.json(validation)
+        return response.json(data)
+    }catch(error){
+        return response.json({
+            error:true,
+            message:"An error ocurred"
+        })
+    }
 })
 
 

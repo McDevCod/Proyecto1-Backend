@@ -24,102 +24,113 @@
     </nav>
     <main>
         <div class="form-container">
-            <h1>Registro de Usuario</h1>
-            <form class="form-login" action="#" method="post" id="signup">
+            <h1>Registro de Usuario</h1> <!--action="registro/new" method="post"-->
+            <form class="form-login"  id="signup">
                     <div class="form-input-container_left">
                         <div class="input-container">
-                            <input type="text" id="username" class="form-input" autocomplete="off" placeholder=" ">
+                            <input type="text" name="username" class="form-input" autocomplete="off" placeholder=" ">
                             <label for="username" class="form-label">Username</label>
                         </div>
                         <div class="input-container">
-                            <input type="text" id="nombre" class="form-input" autocomplete="off" placeholder=" ">
+                            <input type="text" name="nombre" class="form-input" autocomplete="off" placeholder=" ">
                             <label for="nombre" class="form-label">Nombre</label>
                         </div>
                         <div class="input-container">
-                            <input type="text" id="pais" class="form-input" autocomplete="off" placeholder=" ">
+                            <input type="text" name="pais" class="form-input" autocomplete="off" placeholder=" ">
                             <label for="pais" class="form-label">Pais de Domicilio</label>
                         </div>
                         <div class="input-container">
-                            <input type="password" id="password" class="form-input" autocomplete="off" placeholder=" ">
+                            <input type="password" name="password" class="form-input" autocomplete="off" placeholder=" ">
                             <label for="password" class="form-label">Password</label>
                         </div>
                     </div>
                     <div class="form-input-container_right">
                         <div class="input-container">
-                            <input type="email" id="email" class="form-input" autocomplete="off" placeholder=" ">
+                            <input type="email" name="email" class="form-input" autocomplete="off" placeholder=" ">
                             <label for="email" class="form-label">Email</label>
                         </div>
                         <div class="input-container">
-                            <input type="text" id="apellido" class="form-input" autocomplete="off" placeholder=" ">
+                            <input type="text" name="apellido" class="form-input" autocomplete="off" placeholder=" ">
                             <label for="apellido" class="form-label">Apellido</label>
                         </div>
                         <div class="input-container">
-                            <input type="text" id="telefono" class="form-input" autocomplete="off" placeholder=" ">
+                            <input type="text" name="telefono" class="form-input" autocomplete="off" placeholder=" ">
                             <label for="telefono" class="form-label">Telefono</label>
                         </div>
                         <div class="input-container">
-                            <input type="password" id="passwordconf" class="form-input" autocomplete="off" placeholder=" ">
+                            <input type="password" name="passwordconf" class="form-input" autocomplete="off" placeholder=" ">
                             <label for="passwordconf" class="form-label">Confirmar Password</label>
                         </div>
                     </div>
-                    <button class="form-button" type="submit">Registrarse</button>
+                    <button class="form-button">Registrarse</button>
                     <p>Problemas para registrarte? contacta a nuestro <a href="soporte.html">Soporte</a></p>
             </form>
         </div>
     </main>
     <section class="login-mensaje">
-        <p id="message">Mensaje OK</p>
-    </section>    
+        <p id="message"></p>
+    </section>
+    
+    <script>
+
+        const signup=document.getElementById("signup")
+        const message =document.getElementById("message")
+    
+        signup.onsubmit=function(event){
+            event.preventDefault()
+            
+            /*console.log({
+                email:signup.email.value,
+                username:signup.username.value,
+                name:signup.nombre.value,
+                apellido:signup.apellido.value,
+                pais:signup.pais.value,
+                telefono:signup.telefono.value,
+                password:signup.password.value
+            })*/
+           
+            fetch("/registro.html",{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    email:signup.email.value,
+                    username:signup.username.value,
+                    name:signup.nombre.value,
+                    apellido:signup.apellido.value,
+                    pais:signup.pais.value,
+                    telefono:signup.telefono.value,
+                    password:signup.password.value
+                })
+            }).then(function(result){
+                return result.json()
+            })
+            .then(function(data){
+                if(data.error){
+                    message.innerText=data.message
+                }else{
+                    const user=data.user
+                    message.style.color="green"
+                    message.innerText=data.message
+                    console.log(user)
+                    localStorage.setItem("id",user.id)
+                    localStorage.setItem("username",user.user_login)
+                    localStorage.setItem("name",user.name)
+                    localStorage.setItem("email",user.email)
+                    //Redireccion
+                    location.href="#"
+                }
+
+                
+            })
+            .catch(function(error){
+                console.log(error)
+            })
+    
+        }
+    
+    </script>
 </body>
-<script>
-    /*
-    const signup = document.getElementById("signup")
-    const message = document.getElementById("message")
-        signup.onsubmit = function(event){  
-            console.log("paso 1 ok")       
-            if(signup.password.value == signup.passwordconf.value){
-                event.preventDefault()
-                fetch("/registro",{
-                    method:"POST",
-                    headers:{
-                        "Content-Type":"application/json"
-                    },
-                    body:JSON.stringify({
-                        email:signup.email.value,
-                        username:signup.username.value,
-                        name:signup.name.value,
-                        apellido:signup.apellido.value,
-                        pais:signup.pais.value,
-                        telefono:signup.telefono.value,
-                        password:signup.password.value
-                    })
-                }).then(function(result){
-                    console.log(result)
-                    return result.json() // Devuelve un promesa
-                })
-                .then(function(data){
-                    
-                    if(data.error){
-                        message.innerText = data.message
-                    }else{
-                        const user = data.user
-                        message.innerText = ""
-                        // Guardar data en el navegador
-                        localStorage.setItem("id",user.id)
-                        localStorage.setItem("name",user.name)
-                        localStorage.setItem("username",user.username)
-                        localStorage.setItem("email",user.email)
-                        // Redirección
-                        location.href = "/"
-                    }   
-                })
-                .catch(function(error){
-                    console.log(error)
-                })
-            }else{
-                message.innerHTML="Los Password no coinciden, por favor verificar"
-            }
-        }*/
-</script>
 
 </html>

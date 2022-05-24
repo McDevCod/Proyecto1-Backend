@@ -65,24 +65,33 @@ class User{
             "INSERT INTO user_account(??) VALUES(?)",
             [Object.keys(data1), Object.values(data1)]
         )
-        return result
+        
+        /*const result2= await database.query(
+            "INSERT INTO user_account(??) VALUES(?)",
+            [Object.keys(data1), Object.values(data1)]
+        )*/
+
+        delete data1.hash_password
+        delete data1.salt_password
+        delete data1.hash_algorithm
+        data1.id = result.insertId
+        return {
+            user:data1,
+            success:false,
+            message:"Usuario registrado correctamente"
+        }
         }catch(error){
             return error
         }
     }
 
-    async getUserId(usern){
-        try {
-            const result= await database.query(
-                "SELECT id_user_account FROM user_account WHERE user_login = (?)",
-                [usern]
-            )
-            return result
-            }catch(error){
-                return error
-            }
+   
+
+    
+    async searchUser(){
 
     }
+
 
     async encrypt(string){
         const salt = await bcrypt.genSalt(10)
