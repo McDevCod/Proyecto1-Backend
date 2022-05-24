@@ -23,6 +23,7 @@ const app= express()
 //------------Middlewares------------------//
 //---Archivos Staticos para alojar CSS e imagenes que seran requeridos por los html------//
 app.use(express.static(path.join(__dirname,"static")))
+app.use(express.json())
 
 //-------Uso de los routers--------------//
 app.use(users)
