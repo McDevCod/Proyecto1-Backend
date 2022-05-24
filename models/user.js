@@ -42,7 +42,7 @@ class User{
     async save(){
         var fecha_actual=new Date()
         fecha_actual=formatDate(fecha_actual)
-        const data1 ={
+        const data_user_account ={
             user_login:this.username,
             first_logindate:fecha_actual,
             hash_password:await this.encrypt(this.password),
@@ -52,31 +52,40 @@ class User{
             hash_algorithm:"bycrypt",
             account_status:"activo"
         }
-        /**const data2={
-            nombre:this.nombre,
+        const data_user_info={
+            nombre:this.name,
             apellido:this.apellido,
             email:this.email,
             telefono:this.telefono,
             pais:this.pais,
             user_account_iduser_account:0
-        }**/
+        }
         try {
-        const result= await database.query(
-            "INSERT INTO user_account(??) VALUES(?)",
-            [Object.keys(data1), Object.values(data1)]
-        )
-        
-        /*const result2= await database.query(
-            "INSERT INTO user_account(??) VALUES(?)",
-            [Object.keys(data1), Object.values(data1)]
-        )*/
-
-        delete data1.hash_password
-        delete data1.salt_password
-        delete data1.hash_algorithm
-        data1.id = result.insertId
+            const result= await database.query(
+                "INSERT INTO user_account(??) VALUES(?)",
+                [Object.keys(data_user_account), Object.values(data_user_account)]
+            )
+            
+            data_user_account.id = result.insertId
+            data_user_info.user_account_iduser_account=data_user_account.id
+            
+            const result2= await database.query(
+                "INSERT INTO user_info(??) VALUES(?)",
+                [Object.keys(data_user_info), Object.values(data_user_info)]
+            )
+            
+            delete data_user_account.hash_password
+            delete data_user_account.salt_password
+            delete data_user_account.hash_algorithm
+            console.log("data account")
+            console.log(data_user_account)
+            console.log("data user info")
+            console.log(data_user_info)
+            let data=Object.assign( data_user_account,data_user_info)
+            console.log("console de insert de 2 tablas")
+            console.log(data)
         return {
-            user:data1,
+            user:data,
             success:false,
             message:"Usuario registrado correctamente"
         }
@@ -85,11 +94,39 @@ class User{
         }
     }
 
-   
-
     
-    async searchUser(){
+    async login(){
+        const result = await database.query(
+            "SELECT * FROM user_account LEFT JOIN user_info ON user_account.id_user_account=user_info.user_account_iduser_account WHERE user_account.user_login = ?",[this.username])
+        const user = result[0]
+        console.log(this.password)
+        console.log(user)
+        if(user){
+            if(await this.compare(this.password,user.hash_password)){
+                delete user.hash_password
+                return {
+                    success:true,
+                    user,
+                    message:"Usuario correcto"
+                }
 
+            }else{
+                return {
+                    success:false,
+                    message:"Credenciales incorrectas"
+                }
+            }
+
+        }
+
+        return {
+            success:false,
+            message:"Usuario no registrado"
+        }
+    }
+
+    async compare(string,hash){
+        return await bcrypt.compare(string,hash)
     }
 
 

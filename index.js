@@ -14,6 +14,7 @@ const agenda=require("./routes/agenda")
 const contactos=require("./routes/contactos")
 const configuracion=require("./routes/configuracion")
 const ayuda=require("./routes/ayuda")
+const sesion=require("./routes/sesion")
 
 
 //------------Constantes----------------//
@@ -34,6 +35,7 @@ app.use(agenda)
 app.use(contactos)
 app.use(configuracion)
 app.use(ayuda)
+app.use(sesion)
 
 
 //------------Respondiendo a peticion GET del cliente con index del proyecto---------------------//

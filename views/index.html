@@ -19,19 +19,19 @@
                 <a class="nav-button" href="registro.html">Registro</a>
                 <a class="nav-button" href="ayuda.html">Ayuda</a>
             </div>
-            <a class="nav-button" href="index.html">Login</a>
+            <a id="login_tag" class="nav-button" href="index.html">Login</a>
         </div>
     </nav>
     <main>
         <div class="form-container">
             <h1>Login</h1>
-            <form class="form-login" action="#" method="get">
+            <form class="form-login" id="signup" >
                     <div class="input-container">
-                        <input type="text" id="username" class="form-input" autocomplete="off" placeholder=" ">
+                        <input type="text" name="login" id="username" class="form-input" autocomplete="off" placeholder=" ">
                         <label for="username" class="form-label">Username</label>
                     </div>
                     <div class="input-container">
-                        <input type="password" id="password" class="form-input" autocomplete="off" placeholder=" ">
+                        <input type="password" name="password" id="password" class="form-input" autocomplete="off" placeholder=" ">
                         <label for="password" class="form-label">Password</label>
                     </div>
                     <button class="form-button" type="submit">Iniciar Sesión</button>
@@ -40,8 +40,63 @@
         </div>
     </main>
     <section class="login-mensaje">
-        <p></p>
+        <p id="message"></p>
     </section>    
-   
+    <script>
+        const signup = document.getElementById("signup")
+        const message = document.getElementById("message")
+        const log_tag = document.getElementById("login_tag")
+
+        if (localStorage.length){
+             log_tag.innerText= "Cerrar Sesión de: "+ localStorage.getItem("name")
+             log_tag.href="/cierre_sesion.html"
+        }
+
+        signup.onsubmit=function(event){
+            event.preventDefault()
+            
+            
+            fetch("/",{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    username:signup.login.value,
+                    password:signup.password.value
+                })
+            }).then(function(result){
+                return result.json()
+            })
+            .then(function(data){
+                console.log(data)
+                if(data.error){
+                    message.innerText=data.message
+                }else{
+                    console.log(data)
+                    if (data.success){
+                        const user=data.user
+                        message.style.color="green"
+                        message.innerText=data.message
+                        console.log(user)
+                        localStorage.setItem("id",user.id)
+                        localStorage.setItem("username",user.user_login)
+                        localStorage.setItem("name",user.nombre)
+                        localStorage.setItem("email",user.email)
+                        //Redireccion
+                        location.href="#"
+                    }else{
+                        message.innerText=data.message
+                    }
+                }
+
+                
+            })
+            .catch(function(error){
+                console.log(error)
+            })
+            
+        }
+    </script>
 </body>
 </html>

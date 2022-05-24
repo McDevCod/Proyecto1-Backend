@@ -19,7 +19,7 @@
                 <a class="nav-button" href="registro.html">Registro</a>
                 <a class="nav-button" href="ayuda.html">Ayuda</a>
             </div>
-            <a class="nav-button" href="index.html">Login</a>
+            <a id="login_tag" class="nav-button" href="index.html">Login</a>
         </div>
     </nav>
     <main>
@@ -133,6 +133,12 @@
             </section>
         </div>
     </main>
-   
+   <script>
+       const log_tag = document.getElementById("login_tag")
+        if (localStorage.length){
+             log_tag.innerText= "Cerrar Sesión de: "+ localStorage.getItem("name")
+             log_tag.href="/cierre_sesion.html"
+        }
+   </script>
 </body>
 </html>

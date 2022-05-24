@@ -21,7 +21,6 @@ router.get("/registro.html",function(request,response){
 
 //-------------Post para insertar------------------------------//
 router.post("/registro.html", async function(request,response){
-    console.log(request.body)
     const user= new User(request.body)
     const validation= user.validate()
     if(validation.validated){
@@ -47,7 +46,7 @@ router.put("/registro/actualizar", async function(request,response){
 //------------------Get para Consultar------------------------------//
 router.get("/registro/consulta", async function(request,response){
     try{
-        const data = await database.query("SELECT * FROM user_account")
+        const data = await database.query("SELECT * FROM user_account LEFT JOIN user_info ON user_account.id_user_account=user_info.user_account_iduser_account")
 
         return response.json(data)
     }catch(error){
