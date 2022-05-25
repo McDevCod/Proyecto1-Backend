@@ -48,8 +48,7 @@ router.put("/eventos/actualizar", async function(request,response){
 //------------------Get para Consultar------------------------------//
 router.get("/eventos/consulta", async function(request,response){
     try{
-        const data = await database.query("SELECT * FROM user_account LEFT JOIN user_info ON user_account.id_user_account=user_info.user_account_iduser_account")
-
+        const data = await database.query("SELECT * FROM evento A, user_info B, organizacion_evento C WHERE A.idevento = C.evento_idevento AND C.user_account_id_user_account=B.user_account_iduser_account")
         return response.json(data)
     }catch(error){
         return response.json({

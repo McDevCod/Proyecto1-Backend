@@ -23,7 +23,7 @@
         </div>
     </nav>
     <main>
-        <div class="form-container">
+        <div class="form-container" id="rootform">
             <h1>Registro de Usuario</h1> <!--action="registro/new" method="post"-->
             <form class="form-login"  id="signup">
                     <div class="form-input-container_left">
@@ -76,9 +76,12 @@
         const signup = document.getElementById("signup")
         const message = document.getElementById("message")
         const log_tag = document.getElementById("login_tag")
+        const form_contenedor=document.getElementById("rootform")
+        
         if (localStorage.length){
-             log_tag.innerText= "Cerrar Sesión de: "+ localStorage.getItem("name")
-             log_tag.href="/cierre_sesion.html"
+            log_tag.innerText= "Cerrar Sesión de: "+ localStorage.getItem("name")
+            log_tag.href="/cierre_sesion.html"
+            form_contenedor.style.display="none"       
         }
         signup.onsubmit=function(event){
             event.preventDefault()

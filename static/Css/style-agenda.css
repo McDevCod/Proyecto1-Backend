@@ -80,6 +80,7 @@ aside{
     background-color: var(--third-color);
     position:relative;
     left:-2rem;
+    visibility:hidden;
 }
 
 .menu-container{
@@ -87,6 +88,7 @@ aside{
     flex-flow: column;
     width: 136px;
     height:440px;
+    
 
 }
 
@@ -130,10 +132,13 @@ aside{
     flex-direction: column;
     justify-content: center;
     position: relative;
-    left:-10rem
+    left:-10rem;
+   
+
 }
 .form-container{
     text-align: center;
+    visibility:hidden;
 }
 
 .table-container{
@@ -149,6 +154,7 @@ aside{
     margin-top: 3rem;
     box-shadow: 10px 10px 10px 5px var(--fourth-color);
     margin-left:1.7rem;
+    
 }
 
 .input-container{

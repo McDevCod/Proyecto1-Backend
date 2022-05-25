@@ -24,7 +24,7 @@ class Eventos{
         }
         if(this.fecha_final < this.fecha_inicio){
             return {
-                message:"La fecha Final no puede ser mayor a la fecha inicial",
+                message:"La fecha Final no puede ser mmenor a la fecha inicial",
                 validated:false
             }
         }
