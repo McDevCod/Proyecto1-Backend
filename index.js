@@ -15,6 +15,7 @@ const contactos=require("./routes/contactos")
 const configuracion=require("./routes/configuracion")
 const ayuda=require("./routes/ayuda")
 const sesion=require("./routes/sesion")
+const eventos=require("./routes/evento")
 
 
 //------------Constantes----------------//
@@ -36,6 +37,7 @@ app.use(contactos)
 app.use(configuracion)
 app.use(ayuda)
 app.use(sesion)
+app.use(eventos)
 
 
 //------------Respondiendo a peticion GET del cliente con index del proyecto---------------------//

@@ -5,6 +5,14 @@ function formatDate (date){
     return formatted_date
 }
 
+function formatDatetime(date){
+    let formatted_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()+"T"+date.getHours()+":"+date.getMinutes()
+    return formatted_date
+}
 
 
-module.exports= formatDate
+
+module.exports= {
+    formatDate,
+    formatDatetime
+}

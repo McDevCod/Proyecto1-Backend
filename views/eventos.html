@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgendaApp</title>
+    <link rel="stylesheet" href="/Css/style-evento.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <img class="logo" src="../Imagenes/Logo_mockup.jpg" alt="">
+            <div class="nav-button-container">
+                <a class="nav-button" href="contactos.html">Contactos</a>
+                <a class="nav-button" href="agenda.html">Agenda</a>
+                <a class="nav-button" href="configuracion.html">Configuracion</a>
+                <a class="nav-button" href="soporte.html">Soporte</a>
+                <a class="nav-button" href="registro.html">Registro</a>
+                <a class="nav-button" href="ayuda.html">Ayuda</a>
+            </div>
+            <a id="login_tag" class="nav-button" href="index.html">Login</a>
+        </div>
+    </nav>
+    <main>
+        <div class="form-container">
+            <h1>Registro de Evento</h1>
+            <form class="form-login"  id="signup">
+                    <div class="form-input-container_left">
+                        <div class="input-container">
+                            <input type="datetime-local" name="fecha_inicial" class="form-input" autocomplete="off" placeholder=" ">
+                            <label for="fecha_inicial" class="form-label">Fecha Inicial del Evento</label>
+                        </div>
+                        <div class="input-container">
+                            <input type="text" name="nombre_evento" class="form-input" autocomplete="off" placeholder=" ">
+                            <label for="nombre_evento" class="form-label">Nombre</label>
+                        </div>
+                        <!--
+                        <div class="input-container">
+                            <input type="text" name="pais" class="form-input" autocomplete="off" placeholder=" ">
+                            <label for="pais" class="form-label">Libre</label>
+                        </div>
+                        <div class="input-container">
+                            <input type="password" name="password" class="form-input" autocomplete="off" placeholder=" ">
+                            <label for="password" class="form-label">Libre</label>
+                        </div>-->
+                    </div>
+                    <div class="form-input-container_right">
+                        <div class="input-container">
+                            <input type="datetime-local" name="fecha_final" class="form-input" autocomplete="off" placeholder=" ">
+                            <label for="fecha_final" class="form-label">Fecha Final del Evento</label>
+                        </div>
+                        <div class="input-container">
+                            <input type="text" name="descripcion" class="form-input" autocomplete="off" placeholder=" ">
+                            <label for="descripcion" class="form-label">Detalle</label>
+                        </div><!--
+                        <div class="input-container">
+                            <input type="text" name="telefono" class="form-input" autocomplete="off" placeholder=" ">
+                            <label for="telefono" class="form-label">Libre</label>
+                        </div>
+                        <div class="input-container">
+                            <input type="password" name="passwordconf" class="form-input" autocomplete="off" placeholder=" ">
+                            <label for="passwordconf" class="form-label">Libre</label>
+                        </div>-->
+                    </div>
+                    <button class="form-button">Crear Evento</button>
+                    <p>Problemas para crear evento? contacta a nuestro <a href="soporte.html">Soporte</a></p>
+            </form>
+        </div>
+    </main>
+    <section class="login-mensaje">
+        <p id="message"></p>
+    </section>
+    
+    <script>
+
+        const signup = document.getElementById("signup")
+        const message = document.getElementById("message")
+        const log_tag = document.getElementById("login_tag")
+
+        if (localStorage.length){
+             log_tag.innerText= "Cerrar Sesión de: " + localStorage.getItem("name")
+             log_tag.href="/cierre_sesion.html"
+        }
+
+
+        signup.onsubmit=function(event){
+            event.preventDefault()
+            console.log("html")
+            console.log({
+                fecha_inicio:signup.fecha_inicial.value,  
+                nombre:signup.nombre_evento.value,
+                fecha_final:signup.fecha_final.value,
+                descripcion:signup.descripcion.value,
+                id_usuario:localStorage.getItem("id")
+            })
+
+          
+            fetch("/eventos",{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    fecha_inicio:signup.fecha_inicial.value,  
+                    nombre:signup.nombre_evento.value,
+                    fecha_final:signup.fecha_final.value,
+                    descripcion:signup.descripcion.value,
+                    id_usuario:localStorage.getItem("id")
+                })
+            }).then(function(result){
+                return result.json()
+            })
+            .then(function(data){
+                if(data.error){
+                    message.innerText=data.message
+                }else{
+                    const evento=data.evento
+                    message.style.color="green"
+                    message.innerText=data.message
+                    console.log(evento)
+                    //Redireccion
+                    location.href="#"
+                    /*location.href="/agenda.html"*/
+                }
+
+                
+            })
+            .catch(function(error){
+                console.log(error)
+            })
+        
+        }
+    
+    </script>
+</body>
+
+</html>

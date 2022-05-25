@@ -41,7 +41,7 @@ class User{
 
     async save(){
         var fecha_actual=new Date()
-        fecha_actual=formatDate(fecha_actual)
+        fecha_actual=formatDate.formatDate(fecha_actual)
         const data_user_account ={
             user_login:this.username,
             first_logindate:fecha_actual,
@@ -77,13 +77,7 @@ class User{
             delete data_user_account.hash_password
             delete data_user_account.salt_password
             delete data_user_account.hash_algorithm
-            console.log("data account")
-            console.log(data_user_account)
-            console.log("data user info")
-            console.log(data_user_info)
             let data=Object.assign( data_user_account,data_user_info)
-            console.log("console de insert de 2 tablas")
-            console.log(data)
         return {
             user:data,
             success:false,
